@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sakina Fatima — Data Scientist</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080808;--bg2:#101010;--bg3:#1a1010;--bg4:#1e0808;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.14);
+  --text:#f0ede8;--muted:#6b6866;--dim:#2e2c2c;
+  --accent:#8b0000;--accent2:#a50000;--accent3:#c0392b;
+  --accent-light:#ff4444;--accent-glow:rgba(139,0,0,0.18);
+  --accent-dim:rgba(139,0,0,0.15);
+  --mono:'DM Mono',monospace;--display:'Syne',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--display);line-height:1.6;overflow-x:hidden;min-height:100vh}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--accent)}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1.1rem 2.5rem;border-bottom:1px solid var(--border);background:rgba(8,8,8,0.9);backdrop-filter:blur(14px)}
+.nav-logo{font-family:var(--mono);font-size:0.78rem;color:var(--accent-light);letter-spacing:0.1em;text-decoration:none;cursor:pointer}
+.nav-links{display:flex;gap:1.75rem;list-style:none;align-items:center}
+.nav-links a{font-family:var(--mono);font-size:0.72rem;color:var(--muted);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;cursor:pointer}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-edit-btn{font-family:var(--mono);font-size:0.68rem;padding:0.4rem 0.9rem;border:1px solid var(--accent);color:var(--accent-light);background:transparent;cursor:pointer;letter-spacing:0.08em;text-transform:uppercase;transition:all 0.2s}
+.nav-edit-btn:hover{background:var(--accent);color:var(--text)}
+.nav-edit-btn.active{background:var(--accent);color:var(--text)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:22px;height:1px;background:var(--muted);transition:all 0.3s}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:rgba(8,8,8,0.97);border-bottom:1px solid var(--border);z-index:199;padding:1.5rem 2rem;flex-direction:column;gap:1.25rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:var(--mono);font-size:0.85rem;color:var(--muted);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer}
+
+/* ── PAGES ── */
+.page{display:none;min-height:100vh;padding-top:56px}
+.page.active{display:block}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:6rem 2.5rem 4rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-15%;right:-5%;width:55vw;height:55vw;background:radial-gradient(circle,rgba(139,0,0,0.07) 0%,transparent 65%);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-10%;left:-5%;width:40vw;height:40vw;background:radial-gradient(circle,rgba(139,0,0,0.04) 0%,transparent 70%);pointer-events:none}
+.hero-tag{font-family:var(--mono);font-size:0.73rem;color:var(--accent-light);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:1.75rem;display:flex;align-items:center;gap:0.75rem}
+.hero-tag::before{content:'';display:inline-block;width:2rem;height:1px;background:var(--accent-light)}
+.status-blink{width:6px;height:6px;border-radius:50%;background:var(--accent-light);display:inline-block;animation:blink 2s ease-in-out infinite;margin-right:0.3rem}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+.hero-name{font-size:clamp(3rem,9vw,7.5rem);font-weight:800;line-height:0.93;letter-spacing:-0.03em;color:var(--text);margin-bottom:1.5rem}
+.hero-name .accent{color:var(--accent-light)}
+.hero-sub{font-family:var(--mono);font-size:clamp(0.75rem,1.5vw,0.9rem);color:var(--muted);max-width:44ch;line-height:1.85;margin-bottom:2.5rem}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:0.5rem;padding:0.85rem 1.75rem;background:var(--accent);color:var(--text);text-decoration:none;font-family:var(--mono);font-size:0.78rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;transition:background 0.2s;cursor:pointer;border:none}
+.btn-primary:hover{background:var(--accent2)}
+.btn-ghost{display:inline-flex;align-items:center;gap:0.5rem;padding:0.85rem 1.75rem;border:1px solid var(--border2);color:var(--muted);text-decoration:none;font-family:var(--mono);font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;transition:all 0.2s;cursor:pointer;background:transparent}
+.btn-ghost:hover{border-color:var(--muted);color:var(--text)}
+.scroll-hint{position:absolute;bottom:2rem;left:2.5rem;font-family:var(--mono);font-size:0.65rem;color:var(--dim);letter-spacing:0.1em;writing-mode:vertical-rl;text-transform:uppercase;display:flex;align-items:center;gap:0.75rem}
+.scroll-hint::after{content:'';display:block;width:1px;height:2.5rem;background:var(--dim);animation:scrollLine 2.5s ease-in-out infinite}
+@keyframes scrollLine{0%,100%{opacity:0.2}50%{opacity:0.8}}
+
+/* ── SECTION ── */
+.section{padding:5rem 2.5rem;border-top:1px solid var(--border)}
+.section-label{font-family:var(--mono);font-size:0.68rem;color:var(--accent-light);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:2.75rem;display:flex;align-items:center;gap:0.75rem}
+.section-label .num{color:var(--dim)}
+.section-label::after{content:'';flex:0 0 5rem;height:1px;background:var(--border)}
+
+/* ── ABOUT PAGE ── */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.about-heading{font-size:clamp(1.8rem,3.5vw,3rem);font-weight:700;line-height:1.1;letter-spacing:-0.02em;margin-bottom:1.25rem}
+.about-body{font-family:var(--mono);font-size:0.83rem;color:var(--muted);line-height:1.9;margin-bottom:1.1rem}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border)}
+.stat-item{background:var(--bg);padding:1.6rem;transition:background 0.2s}
+.stat-item:hover{background:var(--bg3)}
+.stat-num{font-size:2.2rem;font-weight:800;color:var(--accent-light);letter-spacing:-0.04em;line-height:1;margin-bottom:0.35rem}
+.stat-label{font-family:var(--mono);font-size:0.68rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
+
+/* ── SKILLS ── */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.skill-group{background:var(--bg);padding:1.75rem;transition:background 0.2s}
+.skill-group:hover{background:var(--bg3)}
+.skill-group-title{font-family:var(--mono);font-size:0.68rem;color:var(--accent-light);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:1rem}
+.skill-tags{display:flex;flex-wrap:wrap;gap:0.45rem}
+.skill-tag{font-family:var(--mono);font-size:0.7rem;color:var(--muted);border:1px solid var(--border);padding:0.28rem 0.6rem;letter-spacing:0.04em;transition:all 0.2s;cursor:default}
+.skill-tag:hover{border-color:var(--accent);color:var(--accent-light)}
+
+/* ── PROJECTS PAGE ── */
+.projects-grid{display:grid;gap:1px;background:var(--border);border:1px solid var(--border)}
+.project-card{background:var(--bg);padding:2.25rem;display:grid;grid-template-columns:2.5rem 1fr auto;gap:1.5rem;align-items:start;cursor:pointer;transition:background 0.2s;border:none;width:100%;text-align:left;color:var(--text)}
+.project-card:hover{background:var(--bg3)}
+.project-num{font-family:var(--mono);font-size:0.68rem;color:var(--dim);padding-top:0.3rem}
+.project-title{font-size:1.2rem;font-weight:700;letter-spacing:-0.01em;margin-bottom:0.5rem;color:var(--text)}
+.project-desc{font-family:var(--mono);font-size:0.78rem;color:var(--muted);line-height:1.8;margin-bottom:1rem}
+.project-tags{display:flex;gap:0.4rem;flex-wrap:wrap}
+.project-tag{font-family:var(--mono);font-size:0.63rem;color:var(--accent-light);background:var(--accent-dim);padding:0.22rem 0.55rem;letter-spacing:0.07em;text-transform:uppercase}
+.project-arrow{font-size:1.2rem;color:var(--dim);transition:all 0.2s;padding-top:0.15rem}
+.project-card:hover .project-arrow{color:var(--accent-light);transform:translate(3px,-3px)}
+
+/* ── PROJECT DETAIL ── */
+.project-detail{padding:2.5rem;border-top:1px solid var(--border)}
+.project-detail-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem}
+.project-detail h2{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;letter-spacing:-0.02em}
+.project-detail-body{font-family:var(--mono);font-size:0.82rem;color:var(--muted);line-height:1.9;max-width:65ch;margin-bottom:1.5rem}
+.project-links{display:flex;gap:0.75rem;flex-wrap:wrap}
+.back-btn{font-family:var(--mono);font-size:0.72rem;color:var(--muted);background:none;border:none;cursor:pointer;letter-spacing:0.08em;text-transform:uppercase;padding:0;transition:color 0.2s;display:flex;align-items:center;gap:0.4rem;margin-bottom:2rem}
+.back-btn:hover{color:var(--text)}
+
+/* ── EXPERIENCE ── */
+.exp-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border)}
+.exp-item{background:var(--bg);padding:1.75rem 2.25rem;display:grid;grid-template-columns:1fr auto;gap:2rem;transition:background 0.2s}
+.exp-item:hover{background:var(--bg3)}
+.exp-role{font-size:1.05rem;font-weight:600;margin-bottom:0.25rem}
+.exp-company{font-family:var(--mono);font-size:0.78rem;color:var(--accent-light);margin-bottom:0.65rem}
+.exp-desc{font-family:var(--mono);font-size:0.77rem;color:var(--muted);line-height:1.8}
+.exp-period{font-family:var(--mono);font-size:0.7rem;color:var(--dim);text-align:right;white-space:nowrap;padding-top:0.25rem}
+
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4.5rem;align-items:start}
+.contact-heading{font-size:clamp(2rem,5vw,3.8rem);font-weight:800;line-height:1.05;letter-spacing:-0.03em;margin-bottom:1.25rem}
+.contact-heading em{font-style:normal;color:var(--accent-light)}
+.contact-sub{font-family:var(--mono);font-size:0.8rem;color:var(--muted);line-height:1.85;margin-bottom:2rem}
+.contact-links{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border)}
+.contact-link{background:var(--bg);display:flex;justify-content:space-between;align-items:center;padding:1.35rem 1.6rem;text-decoration:none;color:var(--text);transition:background 0.2s;cursor:pointer}
+.contact-link:hover{background:var(--bg3)}
+.cl-label{font-family:var(--mono);font-size:0.67rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.2rem}
+.cl-value{font-size:0.9rem;font-weight:500}
+.cl-arrow{color:var(--dim);font-size:1rem;transition:all 0.2s}
+.contact-link:hover .cl-arrow{color:var(--accent-light);transform:translate(3px,-3px)}
+
+/* ── EDIT PANEL ── */
+.edit-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:300;align-items:center;justify-content:center;padding:1rem}
+.edit-overlay.open{display:flex}
+.edit-panel{background:var(--bg2);border:1px solid var(--border2);width:100%;max-width:720px;max-height:90vh;overflow-y:auto;display:flex;flex-direction:column}
+.edit-header{display:flex;justify-content:space-between;align-items:center;padding:1.25rem 1.75rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg2);z-index:1}
+.edit-header h3{font-family:var(--mono);font-size:0.8rem;color:var(--accent-light);letter-spacing:0.1em;text-transform:uppercase}
+.edit-close{background:none;border:none;color:var(--muted);font-size:1.25rem;cursor:pointer;transition:color 0.2s;line-height:1}
+.edit-close:hover{color:var(--text)}
+.edit-body{padding:1.75rem;flex:1}
+.edit-field{margin-bottom:1.5rem}
+.edit-label{font-family:var(--mono);font-size:0.68rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:0.5rem;display:block}
+.edit-input,.edit-textarea{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:var(--mono);font-size:0.82rem;padding:0.65rem 0.85rem;outline:none;transition:border-color 0.2s;resize:vertical}
+.edit-input:focus,.edit-textarea:focus{border-color:var(--accent)}
+.edit-textarea{min-height:90px;line-height:1.7}
+.edit-footer{padding:1.25rem 1.75rem;border-top:1px solid var(--border);display:flex;gap:0.75rem;justify-content:flex-end;position:sticky;bottom:0;background:var(--bg2)}
+.save-btn{font-family:var(--mono);font-size:0.75rem;padding:0.6rem 1.4rem;background:var(--accent);color:var(--text);border:none;cursor:pointer;letter-spacing:0.08em;text-transform:uppercase;transition:background 0.2s}
+.save-btn:hover{background:var(--accent2)}
+.cancel-btn{font-family:var(--mono);font-size:0.75rem;padding:0.6rem 1.2rem;background:transparent;color:var(--muted);border:1px solid var(--border);cursor:pointer;letter-spacing:0.08em;text-transform:uppercase;transition:all 0.2s}
+.cancel-btn:hover{border-color:var(--muted);color:var(--text)}
+
+/* edit-mode styles */
+.edit-mode .editable{position:relative;outline:1px dashed rgba(139,0,0,0.3);cursor:pointer;transition:outline-color 0.2s}
+.edit-mode .editable:hover{outline-color:var(--accent-light)}
+.edit-mode .editable::after{content:'✎';position:absolute;top:4px;right:6px;font-size:10px;color:var(--accent-light);opacity:0;transition:opacity 0.2s;pointer-events:none}
+.edit-mode .editable:hover::after{opacity:1}
+.edit-bar{display:none;position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:var(--accent);color:var(--text);font-family:var(--mono);font-size:0.72rem;letter-spacing:0.08em;padding:0.65rem 1.5rem;z-index:250;white-space:nowrap;text-align:center}
+.edit-bar.visible{display:block}
+
+/* ── ADD ITEM ── */
+.add-btn{font-family:var(--mono);font-size:0.72rem;padding:0.55rem 1.1rem;background:transparent;color:var(--muted);border:1px dashed var(--border2);cursor:pointer;letter-spacing:0.08em;text-transform:uppercase;transition:all 0.2s;margin-top:0.75rem;display:flex;align-items:center;gap:0.4rem;width:fit-content}
+.add-btn:hover{border-color:var(--accent);color:var(--accent-light)}
+.delete-btn{font-family:var(--mono);font-size:0.65rem;padding:0.28rem 0.6rem;background:transparent;color:var(--dim);border:1px solid var(--border);cursor:pointer;letter-spacing:0.06em;text-transform:uppercase;transition:all 0.2s}
+.delete-btn:hover{border-color:#8b0000;color:var(--accent-light)}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--border);padding:1.75rem 2.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem}
+.footer-text{font-family:var(--mono);font-size:0.7rem;color:var(--dim);letter-spacing:0.06em}
+.footer-status{display:flex;align-items:center;gap:0.5rem;font-family:var(--mono);font-size:0.7rem;color:var(--muted)}
+
+/* ── FADE IN ── */
+.fade-in{opacity:0;transform:translateY(20px);transition:opacity 0.55s ease,transform 0.55s ease}
+.fade-in.visible{opacity:1;transform:none}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--accent);color:var(--text);font-family:var(--mono);font-size:0.75rem;padding:0.75rem 1.25rem;z-index:400;opacity:0;transition:opacity 0.3s;letter-spacing:0.06em;pointer-events:none}
+.toast.show{opacity:1}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .skills-grid{grid-template-columns:1fr 1fr}
+  .about-grid,.contact-grid{grid-template-columns:1fr;gap:2.5rem}
+}
+@media(max-width:640px){
+  nav{padding:0.9rem 1.25rem}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .hero{padding:5rem 1.25rem 3rem}
+  .scroll-hint{display:none}
+  .section{padding:3.5rem 1.25rem}
+  .project-card{grid-template-columns:2rem 1fr;gap:1rem}
+  .project-arrow{display:none}
+  .skills-grid{grid-template-columns:1fr}
+  .exp-item{grid-template-columns:1fr}
+  .exp-period{text-align:left}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  footer{flex-direction:column;text-align:center}
+  .contact-grid{grid-template-columns:1fr}
+  .edit-panel{max-height:95vh}
+  .hero-name{font-size:clamp(2.8rem,12vw,5rem)}
+}
+@media(max-width:420px){
+  .hero-cta{flex-direction:column}
+  .btn-primary,.btn-ghost{width:100%;justify-content:center}
+  .stats-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <span class="nav-logo" onclick="showPage('home')">// SF.Portfolio</span>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" data-page="home">Home</a></li>
+    <li><a onclick="showPage('about')" data-page="about">About</a></li>
+    <li><a onclick="showPage('projects')" data-page="projects">Projects</a></li>
+    <li><a onclick="showPage('experience')" data-page="experience">Experience</a></li>
+    <li><a onclick="showPage('contact')" data-page="contact">Contact</a></li>
+    <li><button class="nav-edit-btn" id="editToggle" onclick="toggleEditMode()">✎ Edit</button></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a onclick="showPage('home');closeMobileMenu()">Home</a>
+  <a onclick="showPage('about');closeMobileMenu()">About</a>
+  <a onclick="showPage('projects');closeMobileMenu()">Projects</a>
+  <a onclick="showPage('experience');closeMobileMenu()">Experience</a>
+  <a onclick="showPage('contact');closeMobileMenu()">Contact</a>
+  <a onclick="closeMobileMenu();toggleEditMode()" style="color:var(--accent-light)">✎ Edit Mode</a>
+</div>
+
+<!-- ══════════════ HOME PAGE ══════════════ -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-tag">
+      <span class="status-blink"></span>
+      <span id="hero-tag" class="editable" onclick="openEdit('hero-tag')">Available for opportunities</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:2rem;margin-bottom:1.5rem;flex-wrap:wrap">
+      <div id="profile-pic-wrap" style="position:relative;flex-shrink:0">
+        <div id="profile-pic-placeholder" style="width:90px;height:90px;border-radius:50%;background:#1a0a0a;border:2px solid #8b0000;display:flex;align-items:center;justify-content:center;font-size:2rem;color:#ff4444;font-family:'Syne',sans-serif;font-weight:800">SF</div>
+        <img id="profile-pic-img" src="" alt="Sakina Fatima" style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:2px solid #8b0000;display:none"/>
+        <button id="pic-edit-btn" onclick="triggerPicUpload()" title="Change photo" style="display:none;position:absolute;bottom:0;right:0;width:26px;height:26px;border-radius:50%;background:#8b0000;border:none;color:#f0ede8;font-size:12px;cursor:pointer;align-items:center;justify-content:center">✎</button>
+        <input type="file" id="pic-input" accept="image/*" style="display:none" onchange="handlePicUpload(event)"/>
+      </div>
+      <div>
+        <h1 class="hero-name editable" id="hero-name" onclick="openEdit('hero-name')" style="font-size:clamp(2.2rem,6vw,5rem);margin-bottom:0.25rem">Sakina Fatima</h1>
+        <p id="hero-role" class="editable" onclick="openEdit('hero-role')" style="font-family:'DM Mono',monospace;font-size:0.9rem;color:#ff4444;letter-spacing:0.08em">Data Scientist · AI Engineer</p>
+      </div>
+    </div>
+    <p class="hero-sub editable" id="hero-sub" onclick="openEdit('hero-sub')">
+      Turning raw data into decisions. Building ML systems that scale.
+      Specializing in predictive modeling, NLP, and AI-driven analytics.
+    </p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="showPage('projects')">View Projects →</button>
+      <button class="btn-ghost" onclick="showPage('contact')">Get In Touch</button>
+    </div>
+    <div class="scroll-hint">Scroll</div>
+  </section>
+</div>
+
+<!-- ══════════════ ABOUT PAGE ══════════════ -->
+<div class="page" id="page-about">
+  <div class="section">
+    <div class="section-label"><span class="num">01</span> About</div>
+    <div class="about-grid">
+      <div class="fade-in">
+        <h2 class="about-heading editable" id="about-heading" onclick="openEdit('about-heading')">I extract signal<br/>from noise.</h2>
+        <p class="about-body editable" id="about-body1" onclick="openEdit('about-body1')">
+          With over 5 years building data pipelines and deploying ML models at scale,
+          I bridge the gap between raw data and real business impact. My work spans
+          predictive analytics, natural language processing, and AI system design.
+        </p>
+        <p class="about-body editable" id="about-body2" onclick="openEdit('about-body2')">
+          I'm passionate about making complex models explainable, building reproducible
+          pipelines, and delivering insights that actually get used — not just presented.
+        </p>
+      </div>
+      <div class="fade-in" style="transition-delay:0.15s">
+        <div class="stats-grid" id="stats-grid"></div>
+        <button class="add-btn" onclick="addStat()">+ Add Stat</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Skills in About -->
+  <div class="section">
+    <div class="section-label"><span class="num">02</span> Skills</div>
+    <div class="skills-grid" id="skills-grid"></div>
+    <button class="add-btn" onclick="addSkillGroup()">+ Add Skill Group</button>
+  </div>
+
+  <footer>
+    <p class="footer-text">© 2026 — <span id="footer-name" class="editable" onclick="openEdit('footer-name')">Sakina Fatima</span></p>
+    <div class="footer-status"><span class="status-blink"></span> Available for new projects</div>
+  </footer>
+</div>
+
+<!-- ══════════════ PROJECTS PAGE ══════════════ -->
+<div class="page" id="page-projects">
+  <div class="section">
+    <div class="section-label"><span class="num">03</span> Projects</div>
+    <div class="projects-grid" id="projects-grid"></div>
+    <button class="add-btn" onclick="addProject()">+ Add Project</button>
+  </div>
+
+  <!-- PROJECT DETAIL (hidden by default) -->
+  <div id="project-detail-view" style="display:none">
+    <div class="project-detail">
+      <button class="back-btn" onclick="closeProjectDetail()">← Back to Projects</button>
+      <div class="project-detail-header">
+        <h2 id="detail-title"></h2>
+        <div id="detail-tags" class="project-tags" style="margin-top:0.5rem"></div>
+      </div>
+      <p class="project-detail-body" id="detail-desc"></p>
+      <div class="project-links" id="detail-links"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p class="footer-text">© 2026 — <span id="footer-name2" class="editable" onclick="openEdit('footer-name')">Sakina Fatima</span></p>
+    <div class="footer-status"><span class="status-blink"></span> Available for new projects</div>
+  </footer>
+</div>
+
+<!-- ══════════════ EXPERIENCE PAGE ══════════════ -->
+<div class="page" id="page-experience">
+  <div class="section">
+    <div class="section-label"><span class="num">04</span> Experience</div>
+    <div class="exp-list" id="exp-list"></div>
+    <button class="add-btn" onclick="addExp()">+ Add Experience</button>
+  </div>
+  <footer>
+    <p class="footer-text">© 2026 — <span id="footer-name3" class="editable" onclick="openEdit('footer-name')">Sakina Fatima</span></p>
+    <div class="footer-status"><span class="status-blink"></span> Available for new projects</div>
+  </footer>
+</div>
+
+<!-- ══════════════ CONTACT PAGE ══════════════ -->
+<div class="page" id="page-contact">
+  <div class="section">
+    <div class="section-label"><span class="num">05</span> Contact</div>
+    <div class="contact-grid">
+      <div class="fade-in">
+        <h2 class="contact-heading editable" id="contact-heading" onclick="openEdit('contact-heading')">
+          Let's build<br/>something<br/><em>smart.</em>
+        </h2>
+        <p class="contact-sub editable" id="contact-sub" onclick="openEdit('contact-sub')">
+          Open to full-time roles, consulting, and research collaborations.
+          Especially interested in AI product work and applied ML at scale.
+        </p>
+        <button class="btn-primary" onclick="showPage('projects')">View My Work →</button>
+      </div>
+      <div class="fade-in" style="transition-delay:0.15s">
+        <!-- RESUME CARD -->
+        <div id="resume-card" style="border:1px solid var(--border);margin-bottom:1px">
+          <div style="background:var(--bg);padding:1.35rem 1.6rem">
+            <div style="font-family:var(--mono);font-size:0.67rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem">Resume / CV</div>
+            <div id="resume-no-file" style="font-family:var(--mono);font-size:0.82rem;color:var(--dim)">No resume uploaded yet.</div>
+            <div id="resume-has-file" style="display:none">
+              <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem">
+                <div>
+                  <div id="resume-filename" style="font-size:0.9rem;font-weight:500;margin-bottom:0.2rem"></div>
+                  <div id="resume-dlcount" style="font-family:var(--mono);font-size:0.68rem;color:var(--muted)"></div>
+                </div>
+                <button onclick="downloadResume()" style="padding:0.6rem 1.25rem;background:var(--accent);color:var(--text);border:none;font-family:var(--mono);font-size:0.75rem;letter-spacing:0.07em;text-transform:uppercase;cursor:pointer;transition:background 0.2s" onmouseover="this.style.background='#a50000'" onmouseout="this.style.background='#8b0000'">Download PDF ↓</button>
+              </div>
+            </div>
+            <div id="resume-upload-wrap" style="display:none;margin-top:0.85rem">
+              <input type="file" id="resume-input" accept="application/pdf" style="display:none" onchange="handleResumeUpload(event)"/>
+              <button onclick="document.getElementById('resume-input').click()" style="font-family:var(--mono);font-size:0.72rem;padding:0.5rem 1rem;background:transparent;color:var(--muted);border:1px dashed var(--border2);cursor:pointer;letter-spacing:0.07em;text-transform:uppercase;transition:all 0.2s" onmouseover="this.style.borderColor='#ff4444';this.style.color='#ff4444'" onmouseout="this.style.borderColor='rgba(255,255,255,0.14)';this.style.color='#6b6866'">+ Upload Resume PDF</button>
+              <div id="resume-uploading" style="display:none;font-family:var(--mono);font-size:0.75rem;color:var(--muted);margin-top:0.5rem">Uploading…</div>
+            </div>
+          </div>
+        </div>
+        <div class="contact-links" id="contact-links"></div>
+
+      </div>
+    </div>
+  </div>
+  <footer>
+    <p class="footer-text">© 2026 — <span id="footer-name4" class="editable" onclick="openEdit('footer-name')">Sakina Fatima</span></p>
+    <div class="footer-status"><span class="status-blink"></span> Available for new projects</div>
+  </footer>
+</div>
+
+<!-- ══════════════ EDIT PANEL ══════════════ -->
+<div class="edit-overlay" id="editOverlay">
+  <div class="edit-panel">
+    <div class="edit-header">
+      <h3 id="editPanelTitle">Edit Content</h3>
+      <button class="edit-close" onclick="closeEdit()">✕</button>
+    </div>
+    <div class="edit-body" id="editBody"></div>
+    <div class="edit-footer">
+      <button class="cancel-btn" onclick="closeEdit()">Cancel</button>
+      <button class="save-btn" onclick="saveEdit()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT BAR -->
+<div class="edit-bar" id="editBar">✎ Edit mode active — click any highlighted element to edit</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">Saved!</div>
+
+<!-- PASSWORD MODAL -->
+<div id="pwOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:500;align-items:center;justify-content:center">
+  <div style="background:#101010;border:1px solid rgba(255,255,255,0.1);width:100%;max-width:360px;margin:1rem;font-family:'DM Mono',monospace">
+    <div style="padding:1.4rem 1.6rem;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;justify-content:space-between;align-items:center">
+      <span style="font-size:0.75rem;color:#ff4444;letter-spacing:0.12em;text-transform:uppercase">Owner Access</span>
+      <button onclick="closePwModal()" style="background:none;border:none;color:#6b6866;font-size:1.1rem;cursor:pointer;line-height:1">x</button>
+    </div>
+    <div style="padding:1.6rem">
+      <p style="font-size:0.78rem;color:#6b6866;margin-bottom:1.25rem;line-height:1.7">Enter your password to unlock edit mode.</p>
+      <input id="pwInput" type="password" placeholder="Enter password..." onkeydown="if(event.key==='Enter')checkPassword()" style="width:100%;background:#080808;border:1px solid rgba(255,255,255,0.1);color:#f0ede8;font-family:'DM Mono',monospace;font-size:0.82rem;padding:0.65rem 0.85rem;outline:none;margin-bottom:0.75rem;display:block"/>
+      <div id="pwError" style="font-size:0.72rem;color:#e53030;margin-bottom:0.75rem;display:none">Incorrect password. Try again.</div>
+      <button onclick="checkPassword()" style="width:100%;background:#8b0000;color:#f0ede8;border:none;font-family:'DM Mono',monospace;font-size:0.78rem;padding:0.7rem;cursor:pointer;letter-spacing:0.08em;text-transform:uppercase">Unlock Edit Mode</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════
+//  DATABASE (localStorage)
+// ══════════════════════════════════
+const DB_KEY = 'portfolio_db_v3';
+
+const DEFAULT_DB = {
+  texts: {
+    'hero-tag': 'Available for opportunities',
+    'hero-name': 'Sakina Fatima',
+    'hero-role': 'Data Scientist · AI Engineer',
+    'hero-sub': 'Turning raw data into decisions. Building ML systems that scale. Specializing in predictive modeling, NLP, and AI-driven analytics.',
+    'about-heading': 'I extract signal<br/>from noise.',
+    'about-body1': 'With over 5 years building data pipelines and deploying ML models at scale, I bridge the gap between raw data and real business impact. My work spans predictive analytics, natural language processing, and AI system design.',
+    'about-body2': "I'm passionate about making complex models explainable, building reproducible pipelines, and delivering insights that actually get used — not just presented.",
+    'contact-heading': "Let's build<br/>something<br/><em>smart.</em>",
+    'contact-sub': 'Open to full-time roles, consulting, and research collaborations. Especially interested in AI product work and applied ML at scale.',
+    'footer-name': 'Sakina Fatima'
+  },
+  stats: [
+    {id:'s1', num:'50+', label:'Models deployed'},
+    {id:'s2', num:'5yr', label:'Experience'},
+    {id:'s3', num:'12M+', label:'Data points processed'},
+    {id:'s4', num:'8', label:'Publications / talks'}
+  ],
+  skills: [
+    {id:'sk1', title:'Machine Learning', tags:['PyTorch','TensorFlow','Scikit-learn','XGBoost','LightGBM','Hugging Face','LangChain','Fine-tuning']},
+    {id:'sk2', title:'Data & Analytics', tags:['Python','SQL','Pandas','Spark','dbt','Tableau','Power BI','R']},
+    {id:'sk3', title:'Infrastructure', tags:['AWS','GCP','Docker','Kubernetes','MLflow','Airflow','FastAPI','Kafka']}
+  ],
+  projects: [
+    {id:'p1', title:'Real-Time Fraud Detection Engine', desc:'Built an ensemble ML pipeline processing 2M+ daily transactions with sub-50ms latency. Reduced false positives by 38% using SHAP explainability and online learning. Deployed on AWS with auto-scaling capabilities to handle traffic spikes.', tags:['XGBoost','Kafka','AWS','SHAP'], github:'#', live:'#'},
+    {id:'p2', title:'LLM-Powered Customer Intelligence', desc:'Fine-tuned a domain-specific LLM on 500K+ support tickets to classify intent, extract entities, and auto-route tickets — cutting resolution time by 52%. Built REST API wrapper for seamless CRM integration.', tags:['LLM','NLP','Fine-tuning','FastAPI'], github:'#', live:'#'},
+    {id:'p3', title:'Churn Prediction & Retention Simulator', desc:'End-to-end survival analysis model predicting customer churn 90 days out. Interactive dashboard let marketing simulate retention interventions before launch. Integrated with Salesforce for automated outreach triggers.', tags:['Survival Analysis','Tableau','dbt','Python'], github:'#', live:'#'},
+    {id:'p4', title:'Satellite Crop Yield Forecasting', desc:'Multimodal model fusing satellite imagery (CNN) with climate time-series (LSTM) to forecast regional crop yields 3 months ahead. Achieved RMSE 12% below baseline. Used by 3 regional agricultural agencies.', tags:['PyTorch','CNN','LSTM','GCP'], github:'#', live:'#'}
+  ],
+  experience: [
+    {id:'e1', role:'Senior Data Scientist', company:'TechCorp AI Labs', period:'2022 — Present', desc:'Led a team of 4 to build the company\'s first real-time ML serving platform. Owned model lifecycle from experimentation to production monitoring. Reduced model deployment time from 3 weeks to 2 days.'},
+    {id:'e2', role:'Data Analyst → Data Scientist', company:'FinEdge Solutions', period:'2019 — 2022', desc:'Started in analytics, transitioned into ML role within 18 months. Delivered credit risk models adopted across 3 product lines. Built self-serve analytics dashboards used by 200+ stakeholders weekly.'},
+    {id:'e3', role:'Research Intern — NLP', company:'University AI Research Lab', period:'2018 — 2019', desc:'Contributed to research on multilingual sentiment analysis. Co-authored a paper presented at a regional NLP conference.'}
+  ],
+  contactLinks: [
+    {id:'c1', label:'Email', value:'sakinafatima20143@gmail.com', href:'mailto:sakinafatima20143@gmail.com'},
+    {id:'c2', label:'LinkedIn', value:'Add your LinkedIn later', href:'#'},
+    {id:'c3', label:'GitHub', value:'github.com/yourgithub', href:'https://github.com'},
+    {id:'c4', label:'Resume', value:'Download PDF', href:'#'}
+  ]
+};
+
+function loadDB() {
+  try {
+    const saved = localStorage.getItem(DB_KEY);
+    if (saved) return JSON.parse(saved);
+  } catch(e) {}
+  return JSON.parse(JSON.stringify(DEFAULT_DB));
+}
+
+function saveDB() {
+  localStorage.setItem(DB_KEY, JSON.stringify(db));
+}
+
+function resetDB() {
+  if (confirm('Reset all portfolio data to defaults?')) {
+    localStorage.removeItem(DB_KEY);
+    db = JSON.parse(JSON.stringify(DEFAULT_DB));
+    renderAll();
+    showToast('Reset to defaults');
+  }
+}
+
+let db = loadDB();
+
+// ══════════════════════════════════
+//  RENDER FUNCTIONS
+// ══════════════════════════════════
+function renderAll() {
+  renderTexts();
+  renderStats();
+  renderSkills();
+  renderProjects();
+  renderExperience();
+  renderContactLinks();
+}
+
+function renderTexts() {
+  Object.keys(db.texts).forEach(id => {
+    const els = document.querySelectorAll('#' + id);
+    els.forEach(el => { if(el) el.innerHTML = db.texts[id]; });
+  });
+  renderProfilePic();
+  // sync footer names
+  ['footer-name2','footer-name3','footer-name4'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = db.texts['footer-name'];
+  });
+}
+
+function renderStats() {
+  const grid = document.getElementById('stats-grid');
+  if (!grid) return;
+  grid.innerHTML = db.stats.map((s,i) => `
+    <div class="stat-item" style="position:relative">
+      <div class="stat-num editable" onclick="openEditStat('${s.id}')">${s.num}</div>
+      <div class="stat-label editable" onclick="openEditStat('${s.id}')">${s.label}</div>
+      ${editMode ? `<button class="delete-btn" style="position:absolute;top:8px;right:8px" onclick="deleteStat('${s.id}')">✕</button>` : ''}
+    </div>
+  `).join('');
+}
+
+function renderSkills() {
+  const grid = document.getElementById('skills-grid');
+  if (!grid) return;
+  grid.innerHTML = db.skills.map(sk => `
+    <div class="skill-group" style="position:relative">
+      <div class="skill-group-title editable" onclick="openEditSkillGroup('${sk.id}')">${sk.title}</div>
+      <div class="skill-tags">
+        ${sk.tags.map(t => `<span class="skill-tag">${t}</span>`).join('')}
+      </div>
+      ${editMode ? `<button class="delete-btn" style="position:absolute;top:12px;right:12px" onclick="deleteSkillGroup('${sk.id}')">✕</button>` : ''}
+    </div>
+  `).join('');
+}
+
+function renderProjects() {
+  const grid = document.getElementById('projects-grid');
+  if (!grid) return;
+  grid.innerHTML = db.projects.map((p,i) => `
+    <div class="project-card" onclick="viewProject('${p.id}')" style="position:relative">
+      <div class="project-num">0${i+1}</div>
+      <div>
+        <h3 class="project-title">${p.title}</h3>
+        <p class="project-desc">${p.desc.substring(0,120)}…</p>
+        <div class="project-tags">${p.tags.map(t=>`<span class="project-tag">${t}</span>`).join('')}</div>
+      </div>
+      <div class="project-arrow">↗</div>
+      ${editMode ? `<button class="delete-btn" style="position:absolute;bottom:12px;right:12px;z-index:10" onclick="event.stopPropagation();deleteProject('${p.id}')">✕ Delete</button>` : ''}
+    </div>
+  `).join('');
+}
+
+function renderExperience() {
+  const list = document.getElementById('exp-list');
+  if (!list) return;
+  list.innerHTML = db.experience.map(e => `
+    <div class="exp-item" style="position:relative">
+      <div>
+        <div class="exp-role editable" onclick="openEditExp('${e.id}')">${e.role}</div>
+        <div class="exp-company">${e.company}</div>
+        <div class="exp-desc">${e.desc}</div>
+      </div>
+      <div class="exp-period">${e.period}</div>
+      ${editMode ? `<button class="delete-btn" style="position:absolute;bottom:12px;right:12px" onclick="deleteExp('${e.id}')">✕</button>` : ''}
+    </div>
+  `).join('');
+}
+
+function renderContactLinks() {
+  const cont = document.getElementById('contact-links');
+  if (!cont) return;
+  cont.innerHTML = db.contactLinks.map(c => `
+    <a class="contact-link" href="${c.href}" target="_blank">
+      <div>
+        <div class="cl-label">${c.label}</div>
+        <div class="cl-value">${c.value}</div>
+      </div>
+      <span class="cl-arrow">↗</span>
+    </a>
+  `).join('');
+}
+
+// ══════════════════════════════════
+//  PROJECT DETAIL
+// ══════════════════════════════════
+function viewProject(id) {
+  if (editMode) { openEditProject(id); return; }
+  const p = db.projects.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('detail-title').textContent = p.title;
+  document.getElementById('detail-desc').textContent = p.desc;
+  document.getElementById('detail-tags').innerHTML = p.tags.map(t=>`<span class="project-tag">${t}</span>`).join('');
+  document.getElementById('detail-links').innerHTML = `
+    ${p.github && p.github !== '#' ? `<a href="${p.github}" target="_blank" class="btn-ghost" style="font-size:0.75rem">GitHub ↗</a>` : ''}
+    ${p.live && p.live !== '#' ? `<a href="${p.live}" target="_blank" class="btn-primary" style="font-size:0.75rem">Live Demo ↗</a>` : ''}
+  `;
+  document.getElementById('projects-grid').style.display = 'none';
+  document.querySelector('#page-projects .add-btn').style.display = 'none';
+  document.getElementById('project-detail-view').style.display = 'block';
+}
+
+function closeProjectDetail() {
+  document.getElementById('project-detail-view').style.display = 'none';
+  document.getElementById('projects-grid').style.display = 'grid';
+  document.querySelector('#page-projects .add-btn').style.display = editMode ? 'flex' : 'flex';
+}
+
+// ══════════════════════════════════
+//  NAVIGATION
+// ══════════════════════════════════
+let currentPage = 'home';
+
+function showPage(name) {
+  closeProjectDetail();
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('active', a.dataset.page === name);
+  });
+  currentPage = name;
+  window.scrollTo(0,0);
+  observeFadeIns();
+}
+
+function toggleMenu() {
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMobileMenu() {
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// ══════════════════════════════════
+//  EDIT MODE + PASSWORD LOCK
+// ══════════════════════════════════
+let editMode = false;
+let editUnlocked = false;
+
+// ── Change your password here ──
+const EDIT_PASSWORD = 'SakinaAI2026';
+
+function toggleEditMode() {
+  if (editMode) {
+    // turning OFF edit mode — no password needed
+    editMode = false;
+    document.body.classList.remove('edit-mode');
+    document.getElementById('editToggle').classList.remove('active');
+    document.getElementById('editToggle').textContent = '✎ Edit';
+    document.getElementById('editBar').classList.remove('visible');
+    renderAll();
+    document.querySelectorAll('.add-btn').forEach(b => b.style.display = 'none');
+    const pb = document.getElementById('pic-edit-btn');
+    if (pb) pb.style.display = 'none';
+    return;
+  }
+  // turning ON — require password
+  if (editUnlocked) {
+    activateEditMode();
+  } else {
+    openPwModal();
+  }
+}
+
+function openPwModal() {
+  const ov = document.getElementById('pwOverlay');
+  ov.style.display = 'flex';
+  document.getElementById('pwInput').value = '';
+  document.getElementById('pwError').style.display = 'none';
+  setTimeout(() => document.getElementById('pwInput').focus(), 80);
+}
+
+function closePwModal() {
+  document.getElementById('pwOverlay').style.display = 'none';
+}
+
+function checkPassword() {
+  const val = document.getElementById('pwInput').value;
+  if (val === EDIT_PASSWORD) {
+    editUnlocked = true;
+    closePwModal();
+    activateEditMode();
+  } else {
+    document.getElementById('pwError').style.display = 'block';
+    document.getElementById('pwInput').value = '';
+    document.getElementById('pwInput').focus();
+  }
+}
+
+function activateEditMode() {
+  editMode = true;
+  document.body.classList.add('edit-mode');
+  document.getElementById('editToggle').classList.add('active');
+  document.getElementById('editToggle').textContent = '✓ Done';
+  document.getElementById('editBar').classList.add('visible');
+  renderAll();
+  document.querySelectorAll('.add-btn').forEach(b => b.style.display = 'flex');
+  const pb = document.getElementById('pic-edit-btn');
+  if (pb) pb.style.display = 'flex';
+}
+
+// ══════════════════════════════════
+//  EDIT PANEL
+// ══════════════════════════════════
+let currentEditKey = null;
+let currentEditType = null;
+let currentEditId = null;
+
+function openEdit(key) {
+  if (!editMode && !['hero-tag','hero-name','hero-role','hero-sub','about-heading','about-body1','about-body2','contact-heading','contact-sub','footer-name'].includes(key)) return;
+  if (!editMode) return;
+  currentEditKey = key;
+  currentEditType = 'text';
+  const val = db.texts[key] || '';
+  // strip HTML for plain text editing
+  const plain = val.replace(/<br\/?>/gi,'\n').replace(/<[^>]+>/g,'');
+  document.getElementById('editPanelTitle').textContent = 'Edit Text';
+  document.getElementById('editBody').innerHTML = `
+    <div class="edit-field">
+      <label class="edit-label">Content</label>
+      <textarea class="edit-textarea" id="editVal" rows="5">${plain}</textarea>
+    </div>
+  `;
+  document.getElementById('editOverlay').classList.add('open');
+}
+
+function saveEdit() {
+  if (currentEditType === 'text') {
+    const val = document.getElementById('editVal').value;
+    // convert newlines back to <br>
+    db.texts[currentEditKey] = val.replace(/\n/g,'<br/>');
+    saveDB();
+    renderTexts();
+    showToast('Saved!');
+  }
+  closeEdit();
+}
+
+function closeEdit() {
+  document.getElementById('editOverlay').classList.remove('open');
+  currentEditKey = null; currentEditType = null; currentEditId = null;
+}
+
+// STAT EDIT
+function openEditStat(id) {
+  if (!editMode) return;
+  const s = db.stats.find(x=>x.id===id);
+  if (!s) return;
+  currentEditType='stat'; currentEditId=id;
+  document.getElementById('editPanelTitle').textContent='Edit Stat';
+  document.getElementById('editBody').innerHTML=`
+    <div class="edit-field"><label class="edit-label">Number / Value</label><input class="edit-input" id="editStatNum" value="${s.num}"/></div>
+    <div class="edit-field"><label class="edit-label">Label</label><input class="edit-input" id="editStatLabel" value="${s.label}"/></div>
+  `;
+  document.getElementById('editOverlay').classList.add('open');
+}
+
+// SKILL GROUP EDIT
+function openEditSkillGroup(id) {
+  if (!editMode) return;
+  const sk = db.skills.find(x=>x.id===id);
+  if (!sk) return;
+  currentEditType='skill'; currentEditId=id;
+  document.getElementById('editPanelTitle').textContent='Edit Skill Group';
+  document.getElementById('editBody').innerHTML=`
+    <div class="edit-field"><label class="edit-label">Group Title</label><input class="edit-input" id="editSkTitle" value="${sk.title}"/></div>
+    <div class="edit-field"><label class="edit-label">Skills (comma separated)</label><textarea class="edit-textarea" id="editSkTags" rows="3">${sk.tags.join(', ')}</textarea></div>
+  `;
+  document.getElementById('editOverlay').classList.add('open');
+}
+
+// PROJECT EDIT
+function openEditProject(id) {
+  const p = db.projects.find(x=>x.id===id);
+  if (!p) return;
+  currentEditType='project'; currentEditId=id;
+  document.getElementById('editPanelTitle').textContent='Edit Project';
+  document.getElementById('editBody').innerHTML=`
+    <div class="edit-field"><label class="edit-label">Title</label><input class="edit-input" id="epTitle" value="${p.title}"/></div>
+    <div class="edit-field"><label class="edit-label">Description</label><textarea class="edit-textarea" id="epDesc" rows="5">${p.desc}</textarea></div>
+    <div class="edit-field"><label class="edit-label">Tags (comma separated)</label><input class="edit-input" id="epTags" value="${p.tags.join(', ')}"/></div>
+    <div class="edit-field"><label class="edit-label">GitHub URL</label><input class="edit-input" id="epGithub" value="${p.github||''}"/></div>
+    <div class="edit-field"><label class="edit-label">Live Demo URL</label><input class="edit-input" id="epLive" value="${p.live||''}"/></div>
+  `;
+  document.getElementById('editOverlay').classList.add('open');
+}
+
+// EXPERIENCE EDIT
+function openEditExp(id) {
+  if (!editMode) return;
+  const e = db.experience.find(x=>x.id===id);
+  if (!e) return;
+  currentEditType='exp'; currentEditId=id;
+  document.getElementById('editPanelTitle').textContent='Edit Experience';
+  document.getElementById('editBody').innerHTML=`
+    <div class="edit-field"><label class="edit-label">Role / Title</label><input class="edit-input" id="eeRole" value="${e.role}"/></div>
+    <div class="edit-field"><label class="edit-label">Company</label><input class="edit-input" id="eeCompany" value="${e.company}"/></div>
+    <div class="edit-field"><label class="edit-label">Period</label><input class="edit-input" id="eePeriod" value="${e.period}"/></div>
+    <div class="edit-field"><label class="edit-label">Description</label><textarea class="edit-textarea" id="eeDesc" rows="4">${e.desc}</textarea></div>
+  `;
+  document.getElementById('editOverlay').classList.add('open');
+}
+
+// CONTACT LINK EDIT
+function openEditContactLink(id) {
+  if (!editMode) return;
+  const c = db.contactLinks.find(x=>x.id===id);
+  if (!c) return;
+  currentEditType='contact'; currentEditId=id;
+  document.getElementById('editPanelTitle').textContent='Edit Contact Link';
+  document.getElementById('editBody').innerHTML=`
+    <div class="edit-field"><label class="edit-label">Label</label><input class="edit-input" id="ecLabel" value="${c.label}"/></div>
+    <div class="edit-field"><label class="edit-label">Display Value</label><input class="edit-input" id="ecValue" value="${c.value}"/></div>
+    <div class="edit-field"><label class="edit-label">URL / href</label><input class="edit-input" id="ecHref" value="${c.href}"/></div>
+  `;
+  document.getElementById('editOverlay').classList.add('open');
+}
+
+// UNIFIED SAVE
+const origSaveEdit = saveEdit;
+window.saveEdit = function() {
+  if (currentEditType === 'text') {
+    const val = document.getElementById('editVal').value;
+    db.texts[currentEditKey] = val.replace(/\n/g,'<br/>');
+    saveDB(); renderTexts();
+  } else if (currentEditType === 'stat') {
+    const s = db.stats.find(x=>x.id===currentEditId);
+    if(s){ s.num=document.getElementById('editStatNum').value; s.label=document.getElementById('editStatLabel').value; }
+    saveDB(); renderStats();
+  } else if (currentEditType === 'skill') {
+    const sk = db.skills.find(x=>x.id===currentEditId);
+    if(sk){ sk.title=document.getElementById('editSkTitle').value; sk.tags=document.getElementById('editSkTags').value.split(',').map(t=>t.trim()).filter(Boolean); }
+    saveDB(); renderSkills();
+  } else if (currentEditType === 'project') {
+    const p = db.projects.find(x=>x.id===currentEditId);
+    if(p){ p.title=document.getElementById('epTitle').value; p.desc=document.getElementById('epDesc').value; p.tags=document.getElementById('epTags').value.split(',').map(t=>t.trim()).filter(Boolean); p.github=document.getElementById('epGithub').value; p.live=document.getElementById('epLive').value; }
+    saveDB(); renderProjects();
+  } else if (currentEditType === 'exp') {
+    const e = db.experience.find(x=>x.id===currentEditId);
+    if(e){ e.role=document.getElementById('eeRole').value; e.company=document.getElementById('eeCompany').value; e.period=document.getElementById('eePeriod').value; e.desc=document.getElementById('eeDesc').value; }
+    saveDB(); renderExperience();
+  }
+  showToast('Saved!');
+  closeEdit();
+};
+
+// ══════════════════════════════════
+//  ADD FUNCTIONS
+// ══════════════════════════════════
+function uid(){ return Math.random().toString(36).slice(2,8); }
+
+function addStat(){
+  const s={id:'s'+uid(),num:'0',label:'New Stat'};
+  db.stats.push(s); saveDB(); renderStats();
+  openEditStat(s.id);
+}
+function addSkillGroup(){
+  const sk={id:'sk'+uid(),title:'New Group',tags:['Skill 1','Skill 2']};
+  db.skills.push(sk); saveDB(); renderSkills();
+  openEditSkillGroup(sk.id);
+}
+function addProject(){
+  const p={id:'p'+uid(),title:'New Project',desc:'Describe your project here.',tags:['Tag'],github:'#',live:'#'};
+  db.projects.push(p); saveDB(); renderProjects();
+  openEditProject(p.id);
+}
+function addExp(){
+  const e={id:'e'+uid(),role:'New Role',company:'Company',period:'20XX — Present',desc:'Describe your experience.'};
+  db.experience.push(e); saveDB(); renderExperience();
+  openEditExp(e.id);
+}
+function addContactLink(){
+  const c={id:'c'+uid(),label:'Platform',value:'your.handle',href:'#'};
+  db.contactLinks.push(c); saveDB(); renderContactLinks();
+  openEditContactLink(c.id);
+}
+
+// DELETE
+function deleteStat(id){ db.stats=db.stats.filter(x=>x.id!==id); saveDB(); renderStats(); }
+function deleteSkillGroup(id){ db.skills=db.skills.filter(x=>x.id!==id); saveDB(); renderSkills(); }
+function deleteProject(id){ db.projects=db.projects.filter(x=>x.id!==id); saveDB(); renderProjects(); }
+function deleteExp(id){ db.experience=db.experience.filter(x=>x.id!==id); saveDB(); renderExperience(); }
+function deleteContactLink(id){ db.contactLinks=db.contactLinks.filter(x=>x.id!==id); saveDB(); renderContactLinks(); }
+
+// ══════════════════════════════════
+//  TOAST
+// ══════════════════════════════════
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+// ══════════════════════════════════
+//  FADE IN OBSERVER
+// ══════════════════════════════════
+function observeFadeIns(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+  },{threshold:0.1});
+  document.querySelectorAll('.fade-in').forEach(el=>{
+    el.classList.remove('visible');
+    obs.observe(el);
+  });
+}
+
+// ══════════════════════════════════
+//  CLOSE OVERLAY ON BG CLICK
+// ══════════════════════════════════
+document.getElementById('editOverlay').addEventListener('click', function(e){
+  if (e.target === this) closeEdit();
+});
+
+// ══════════════════════════════════
+//  INIT
+// ══════════════════════════════════
+// ── PROFILE PICTURE ──
+function renderProfilePic() {
+  const pic = db.profilePic || '';
+  const img = document.getElementById('profile-pic-img');
+  const ph = document.getElementById('profile-pic-placeholder');
+  if (pic && img) {
+    img.src = pic;
+    img.style.display = 'block';
+    if (ph) ph.style.display = 'none';
+  } else {
+    if (img) img.style.display = 'none';
+    if (ph) ph.style.display = 'flex';
+  }
+  const btn = document.getElementById('pic-edit-btn');
+  if (btn) btn.style.display = editMode ? 'flex' : 'none';
+}
+
+function triggerPicUpload() {
+  document.getElementById('pic-input').click();
+}
+
+function handlePicUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    db.profilePic = ev.target.result;
+    saveDB();
+    renderProfilePic();
+    showToast('Profile photo updated!');
+  };
+  reader.readAsDataURL(file);
+}
+
+// ══════════════════════════════════
+//  EMAILJS CONFIG — fill in your keys below
+// ══════════════════════════════════
+const EJS = {
+  publicKey:  'YOUR_EMAILJS_PUBLIC_KEY',   // paste from EmailJS dashboard
+  serviceId:  'YOUR_EMAILJS_SERVICE_ID',   // e.g. service_abc123
+  templateId: 'YOUR_EMAILJS_TEMPLATE_ID'  // e.g. template_xyz789
+};
+let ejsReady = false;
+function initEJS() {
+  try {
+    if (typeof emailjs !== 'undefined' && EJS.publicKey !== 'YOUR_EMAILJS_PUBLIC_KEY') {
+      emailjs.init({ publicKey: EJS.publicKey });
+      ejsReady = true;
+    }
+  } catch(e) {}
+}
+initEJS();
+
+// ══════════════════════════════════
+//  RESUME UPLOAD & DOWNLOAD
+// ══════════════════════════════════
+// ── Resume stored as a Blob in memory (not localStorage) ──
+// This avoids the 5MB localStorage limit and base64 corruption issues.
+let _resumeBlob = null;      // the actual File/Blob object
+let _resumeName = '';        // original filename
+let _resumeObjURL = null;    // object URL for the current session
+
+// Try to restore resume metadata (name + download count) from localStorage
+// The actual file bytes are NOT stored — user must re-upload after page refresh.
+// This is the only reliable cross-browser approach for a static HTML file.
+(function restoreResumeMeta() {
+  try {
+    const meta = localStorage.getItem('sf_resume_meta');
+    if (meta) {
+      const m = JSON.parse(meta);
+      _resumeName = m.name || '';
+      db.downloadCount = m.count || 0;
+    }
+  } catch(e) {}
+})();
+
+function renderResume() {
+  const noFile  = document.getElementById('resume-no-file');
+  const hasFile = document.getElementById('resume-has-file');
+  const uploadWrap = document.getElementById('resume-upload-wrap');
+  const fnEl    = document.getElementById('resume-filename');
+  const dlEl    = document.getElementById('resume-dlcount');
+  if (!noFile) return;
+
+  const ready = !!_resumeBlob;
+  noFile.style.display  = ready ? 'none'  : 'block';
+  hasFile.style.display = ready ? 'block' : 'none';
+
+  if (ready) {
+    if (fnEl) fnEl.textContent = _resumeName || 'Resume.pdf';
+    const count = db.downloadCount || 0;
+    if (dlEl) dlEl.textContent = count === 0
+      ? 'No downloads yet'
+      : count + ' download' + (count === 1 ? '' : 's') + ' so far';
+  }
+
+  // show upload area only in edit mode
+  if (uploadWrap) uploadWrap.style.display = editMode ? 'block' : 'none';
+
+  // show a "re-upload needed" hint if we have a name but no blob (after refresh)
+  const hint = document.getElementById('resume-reupload-hint');
+  if (hint) hint.style.display = (!ready && _resumeName && editMode) ? 'block' : 'none';
+}
+
+function handleResumeUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  if (!file.name.toLowerCase().endsWith('.pdf')) {
+    showToast('Please upload a PDF file.'); return;
+  }
+  if (file.size > 10 * 1024 * 1024) {
+    showToast('File too large — max 10MB'); return;
+  }
+  const upEl = document.getElementById('resume-uploading');
+  if (upEl) upEl.style.display = 'block';
+
+  // Revoke any old object URL
+  if (_resumeObjURL) { URL.revokeObjectURL(_resumeObjURL); _resumeObjURL = null; }
+
+  // Store the File object directly in memory
+  _resumeBlob = file;
+  _resumeName = file.name;
+
+  // Save just the metadata (name + count) to localStorage
+  try {
+    localStorage.setItem('sf_resume_meta', JSON.stringify({
+      name: _resumeName, count: db.downloadCount || 0
+    }));
+  } catch(e) {}
+
+  if (upEl) upEl.style.display = 'none';
+  renderResume();
+  showToast('Resume ready — ' + file.name);
+  // reset input so same file can be re-uploaded
+  e.target.value = '';
+}
+
+function downloadResume() {
+  if (!_resumeBlob) {
+    showToast('Please upload your resume first (in Edit mode).');
+    return;
+  }
+
+  // Increment counter & save meta
+  db.downloadCount = (db.downloadCount || 0) + 1;
+  try {
+    localStorage.setItem('sf_resume_meta', JSON.stringify({
+      name: _resumeName, count: db.downloadCount
+    }));
+  } catch(e) {}
+  renderResume();
+
+  // Create a fresh object URL from the Blob and trigger download
+  try {
+    if (_resumeObjURL) URL.revokeObjectURL(_resumeObjURL);
+    _resumeObjURL = URL.createObjectURL(_resumeBlob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = _resumeObjURL;
+    a.download = _resumeName || 'Sakina_Fatima_Resume.pdf';
+    document.body.appendChild(a);
+    a.click();
+    // Revoke after short delay to allow browser to start download
+    setTimeout(() => {
+      URL.revokeObjectURL(_resumeObjURL);
+      _resumeObjURL = null;
+      document.body.removeChild(a);
+    }, 3000);
+    showToast('Download started!');
+    sendDownloadEmail();
+  } catch(err) {
+    showToast('Download error: ' + err.message);
+  }
+}
+
+function sendDownloadEmail() {
+  if (!ejsReady) return;
+  const count = db.downloadCount || 1;
+  const now = new Date().toLocaleString('en-PK', {timeZone:'Asia/Karachi'});
+  emailjs.send(EJS.serviceId, EJS.templateId, {
+    to_email:    'sakinafatima20143@gmail.com',
+    download_num: count,
+    timestamp:   now,
+    resume_name: (db.resume && db.resume.name) || 'Resume.pdf'
+  }).catch(()=>{});
+}
+
+// patch renderAll to include resume
+const _origRenderAll = renderAll;
+renderAll = function() {
+  _origRenderAll();
+  renderResume();
+};
+
+renderAll();
+// hide add buttons initially (only show in edit mode)
+document.querySelectorAll('.add-btn').forEach(b=>b.style.display='none');
+observeFadeIns();
+</script>
+</body>
+</html>

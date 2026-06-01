@@ -251,6 +251,7 @@ footer{border-top:1px solid var(--border);padding:1.75rem 2.5rem;display:flex;ju
         <div id="profile-pic-placeholder" style="width:90px;height:90px;border-radius:50%;background:#1a0a0a;border:2px solid #8b0000;display:flex;align-items:center;justify-content:center;font-size:2rem;color:#ff4444;font-family:'Syne',sans-serif;font-weight:800">SF</div>
         <img id="profile-pic-img" src="" alt="Sakina Fatima" style="width:90px;height:90px;border-radius:50%;object-fit:cover;border:2px solid #8b0000;display:none"/>
         <button id="pic-edit-btn" onclick="triggerPicUpload()" title="Change photo" style="display:none;position:absolute;bottom:0;right:0;width:26px;height:26px;border-radius:50%;background:#8b0000;border:none;color:#f0ede8;font-size:12px;cursor:pointer;align-items:center;justify-content:center">✎</button>
+        <button id="pic-delete-btn" onclick="deleteProfilePic()" title="Remove photo" style="display:none;position:absolute;top:0;right:0;width:22px;height:22px;border-radius:50%;background:#2e0000;border:1px solid #8b0000;color:#ff4444;font-size:11px;cursor:pointer;align-items:center;justify-content:center;line-height:1">✕</button>
         <input type="file" id="pic-input" accept="image/*" style="display:none" onchange="handlePicUpload(event)"/>
       </div>
       <div>
@@ -725,6 +726,9 @@ function activateEditMode() {
   document.querySelectorAll('.add-btn').forEach(b => b.style.display = 'flex');
   const pb = document.getElementById('pic-edit-btn');
   if (pb) pb.style.display = 'flex';
+  // delete btn shown only if photo exists
+  const db2 = document.getElementById('pic-delete-btn');
+  if (db2 && (window.db && window.db.profilePic)) db2.style.display = 'flex';
 }
 
 // ══════════════════════════════════
@@ -947,7 +951,8 @@ function renderProfilePic() {
   const pic = db.profilePic || '';
   const img = document.getElementById('profile-pic-img');
   const ph = document.getElementById('profile-pic-placeholder');
-  if (pic && img) {
+  const hasPic = pic && pic.length > 0;
+  if (hasPic && img) {
     img.src = pic;
     img.style.display = 'block';
     if (ph) ph.style.display = 'none';
@@ -955,8 +960,19 @@ function renderProfilePic() {
     if (img) img.style.display = 'none';
     if (ph) ph.style.display = 'flex';
   }
-  const btn = document.getElementById('pic-edit-btn');
-  if (btn) btn.style.display = editMode ? 'flex' : 'none';
+  const editBtn = document.getElementById('pic-edit-btn');
+  if (editBtn) editBtn.style.display = editMode ? 'flex' : 'none';
+  // show delete button only in edit mode AND when a photo exists
+  const delBtn = document.getElementById('pic-delete-btn');
+  if (delBtn) delBtn.style.display = (editMode && hasPic) ? 'flex' : 'none';
+}
+
+function deleteProfilePic() {
+  if (!confirm('Remove your profile photo?')) return;
+  db.profilePic = '';
+  saveDB();
+  renderProfilePic();
+  showToast('Profile photo removed!');
 }
 
 function triggerPicUpload() {

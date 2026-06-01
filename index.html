@@ -436,48 +436,54 @@ footer{border-top:1px solid var(--border);padding:1.75rem 2.5rem;display:flex;ju
 // ══════════════════════════════════
 //  DATABASE (localStorage)
 // ══════════════════════════════════
-const DB_KEY = 'portfolio_db_v3';
+const DB_KEY = 'portfolio_db_v4';
 
 const DEFAULT_DB = {
   texts: {
-    'hero-tag': 'Available for opportunities',
+    'hero-tag': 'Open to opportunities — let\'s connect!',
     'hero-name': 'Sakina Fatima',
-    'hero-role': 'Data Scientist · AI Engineer',
-    'hero-sub': 'Turning raw data into decisions. Building ML systems that scale. Specializing in predictive modeling, NLP, and AI-driven analytics.',
-    'about-heading': 'I extract signal<br/>from noise.',
-    'about-body1': 'With over 5 years building data pipelines and deploying ML models at scale, I bridge the gap between raw data and real business impact. My work spans predictive analytics, natural language processing, and AI system design.',
-    'about-body2': "I'm passionate about making complex models explainable, building reproducible pipelines, and delivering insights that actually get used — not just presented.",
-    'contact-heading': "Let's build<br/>something<br/><em>smart.</em>",
-    'contact-sub': 'Open to full-time roles, consulting, and research collaborations. Especially interested in AI product work and applied ML at scale.',
+    'hero-role': 'Data Scientist · AI Engineer · Cybersecurity AI',
+    'hero-sub': "Data is just chaos until I touch it. Currently turning coffee and curiosity into machine learning models — one dataset at a time.",
+    'about-heading': 'I find patterns<br/>others scroll past.',
+    'about-body1': 'Aspiring Data Scientist with hands-on experience in machine learning, AI chatbots, cybersecurity AI, and data visualization. I have built 15+ projects spanning predictive modeling, NLP, Azure AI, and cloud-based systems.',
+    'about-body2': "Fresh out of courses, armed with Python and zero fear. I don't guess — I analyze. From British Airways simulations to NASA Space Apps challenges, I build things that actually work.",
+    'contact-heading': "Let\'s build<br/>something<br/><em>smart.</em>",
+    'contact-sub': 'Open to internships, junior roles, freelance projects, and collaborations. Especially interested in AI, data science, and cybersecurity roles.',
     'footer-name': 'Sakina Fatima'
   },
   stats: [
-    {id:'s1', num:'50+', label:'Models deployed'},
-    {id:'s2', num:'5yr', label:'Experience'},
-    {id:'s3', num:'12M+', label:'Data points processed'},
-    {id:'s4', num:'8', label:'Publications / talks'}
+    {id:'s1', num:'15+', label:'Projects completed'},
+    {id:'s2', num:'5+', label:'Technologies learned'},
+    {id:'s3', num:'3', label:'AI chatbots built'},
+    {id:'s4', num:'100%', label:'Passion for data'}
   ],
   skills: [
-    {id:'sk1', title:'Machine Learning', tags:['PyTorch','TensorFlow','Scikit-learn','XGBoost','LightGBM','Hugging Face','LangChain','Fine-tuning']},
-    {id:'sk2', title:'Data & Analytics', tags:['Python','SQL','Pandas','Spark','dbt','Tableau','Power BI','R']},
-    {id:'sk3', title:'Infrastructure', tags:['AWS','GCP','Docker','Kubernetes','MLflow','Airflow','FastAPI','Kafka']}
+    {id:'sk1', title:'Machine Learning & AI', tags:['Python','Scikit-learn','Regression','Classification','Clustering','NLP','LangChain','OpenAI API']},
+    {id:'sk2', title:'Data & Visualization', tags:['Pandas','NumPy','EDA','Tableau','Power BI','Excel','SQL','Statistics']},
+    {id:'sk3', title:'Cloud & Development', tags:['Azure AI','FastAPI','Flask','HTML','CSS','Cybersecurity AI','Git','GitHub']}
   ],
   projects: [
-    {id:'p1', title:'Real-Time Fraud Detection Engine', desc:'Built an ensemble ML pipeline processing 2M+ daily transactions with sub-50ms latency. Reduced false positives by 38% using SHAP explainability and online learning. Deployed on AWS with auto-scaling capabilities to handle traffic spikes.', tags:['XGBoost','Kafka','AWS','SHAP'], github:'#', live:'#'},
-    {id:'p2', title:'LLM-Powered Customer Intelligence', desc:'Fine-tuned a domain-specific LLM on 500K+ support tickets to classify intent, extract entities, and auto-route tickets — cutting resolution time by 52%. Built REST API wrapper for seamless CRM integration.', tags:['LLM','NLP','Fine-tuning','FastAPI'], github:'#', live:'#'},
-    {id:'p3', title:'Churn Prediction & Retention Simulator', desc:'End-to-end survival analysis model predicting customer churn 90 days out. Interactive dashboard let marketing simulate retention interventions before launch. Integrated with Salesforce for automated outreach triggers.', tags:['Survival Analysis','Tableau','dbt','Python'], github:'#', live:'#'},
-    {id:'p4', title:'Satellite Crop Yield Forecasting', desc:'Multimodal model fusing satellite imagery (CNN) with climate time-series (LSTM) to forecast regional crop yields 3 months ahead. Achieved RMSE 12% below baseline. Used by 3 regional agricultural agencies.', tags:['PyTorch','CNN','LSTM','GCP'], github:'#', live:'#'}
+    {id:'p1', title:'Customer Buying Behavior Prediction', desc:'Built during the British Airways Data Science Job Simulation. Analyzed customer review data to identify trends affecting purchasing decisions. Developed a predictive model for customer buying behavior using machine learning techniques.', tags:['Python','ML','British Airways','EDA'], github:'#', live:'#'},
+    {id:'p2', title:'Phishing Email Detection & Analysis System', desc:'Analyzed phishing email characteristics and attack patterns. Applied machine learning and NLP concepts for email classification. Focused on identifying malicious indicators, suspicious links, spoofing attempts, and social engineering techniques. Cybersecurity meets AI.', tags:['NLP','Cybersecurity','ML','Python'], github:'#', live:'#'},
+    {id:'p3', title:'AI-Based Cybersecurity Threat Detection', desc:'Built a phishing URL classifier and security log analysis system using OpenAI API. Integrated LangChain for intelligent threat analysis. Explored real-time cybersecurity monitoring concepts with AI at the core.', tags:['OpenAI','LangChain','Cybersecurity','FastAPI'], github:'#', live:'#'},
+    {id:'p4', title:'NASA Space Apps Challenge — Embiggen Your Eyes', desc:'Participated in the NASA Space Apps Challenge. Processed Earth and space observation datasets including MODIS, HiRISE, LROC, TESS, and Earthdata. Built FastAPI backend and created scientific data visualization and analysis tools.', tags:['NASA','FastAPI','Space Data','Python'], github:'#', live:'#'},
+    {id:'p5', title:'Wellness Buddy Chatbot', desc:'Built a conversational wellness assistant using Azure AI technologies. Designed for natural language interaction to provide health and wellness guidance. Focused on empathetic AI design and practical health information delivery.', tags:['Azure AI','Chatbot','NLP','Python'], github:'#', live:'#'},
+    {id:'p6', title:'RE-search Chatbot', desc:'AI research assistant designed to retrieve research information and references. Helps students locate academic sources quickly using natural language queries. Built to simplify the research process for university students.', tags:['AI','Chatbot','NLP','Academic'], github:'#', live:'#'},
+    {id:'p7', title:'Car Price Prediction Model', desc:'Built a machine learning regression model to predict vehicle prices. Performed data cleaning, feature engineering, model training, and evaluation. Applied supervised learning techniques to real-world automotive data.', tags:['Python','Regression','ML','EDA'], github:'#', live:'#'},
+    {id:'p8', title:'House Price Prediction Model', desc:'Developed a regression-based machine learning model for property price prediction. Conducted exploratory data analysis, preprocessing, and model evaluation. Used housing-related features to estimate market value accurately.', tags:['Python','Regression','EDA','Scikit-learn'], github:'#', live:'#'},
+    {id:'p9', title:'Employee Manager HR Dashboard', desc:'Built a full employee management web application. Features include adding, updating, and managing employee records with an HR dashboard and team management interface. Built using Flask, HTML, and CSS.', tags:['Flask','HTML','CSS','Python'], github:'#', live:'#'},
+    {id:'p10', title:'Tableau & Power BI Dashboards', desc:'Built multiple interactive dashboards for KPI reporting, business intelligence, and data storytelling. Created executive summaries, charts, and visual analytics. Converted raw data into decision-ready business insights.', tags:['Tableau','Power BI','BI','Visualization'], github:'#', live:'#'}
   ],
   experience: [
-    {id:'e1', role:'Senior Data Scientist', company:'TechCorp AI Labs', period:'2022 — Present', desc:'Led a team of 4 to build the company\'s first real-time ML serving platform. Owned model lifecycle from experimentation to production monitoring. Reduced model deployment time from 3 weeks to 2 days.'},
-    {id:'e2', role:'Data Analyst → Data Scientist', company:'FinEdge Solutions', period:'2019 — 2022', desc:'Started in analytics, transitioned into ML role within 18 months. Delivered credit risk models adopted across 3 product lines. Built self-serve analytics dashboards used by 200+ stakeholders weekly.'},
-    {id:'e3', role:'Research Intern — NLP', company:'University AI Research Lab', period:'2018 — 2019', desc:'Contributed to research on multilingual sentiment analysis. Co-authored a paper presented at a regional NLP conference.'}
+    {id:'e1', role:'Data Science Job Simulation', company:'British Airways (Forage)', period:'2024', desc:'Completed an industry-level data science simulation. Analyzed customer review data, built predictive models for buying behavior, and delivered data-driven insights — just like a real British Airways data scientist.'},
+    {id:'e2', role:'NASA Space Apps Challenge', company:'NASA (Global Hackathon)', period:'2024', desc:'Participated in the world\'s largest space hackathon. Processed real NASA datasets (MODIS, TESS, HiRISE) and built a FastAPI-powered backend for scientific data visualization under the project "Embiggen Your Eyes".'},
+    {id:'e3', role:'AI & Data Science Coursework', company:'Self-directed Learning', period:'2023 — 2025', desc:'Completed multiple courses in Python, Machine Learning, NLP, Azure AI, Cybersecurity AI, Tableau, Power BI, and SQL. Built 15+ hands-on projects across industries including finance, healthcare, space, and cybersecurity.'}
   ],
   contactLinks: [
     {id:'c1', label:'Email', value:'sakinafatima20143@gmail.com', href:'mailto:sakinafatima20143@gmail.com'},
     {id:'c2', label:'LinkedIn', value:'Add your LinkedIn later', href:'#'},
     {id:'c3', label:'GitHub', value:'github.com/yourgithub', href:'https://github.com'},
-    {id:'c4', label:'Resume', value:'Download PDF', href:'#'}
+
   ]
 };
 
